@@ -1,0 +1,28 @@
+.testBack{
+  background-color:#f2f6f9;
+}
+.h-100{
+  height: 768px;
+}
+.nav-height{
+  height: 60px;
+}
+.testMainBack{
+  background-color: #ffffff;
+  box-shadow: #000 2px 2px -2px 0px;
+}
+.mSpace{
+  width: 100%;
+  height: 100px;
+}
+.fontSize{
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 400;
+}
+.fontQuesSize{
+  font-size: 24px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+
+}
