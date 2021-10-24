@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import { LoadingOutlined, EyeFilled ,EyeInvisibleFilled,LikeFilled  } from "@ant-design/icons";
+import { Spin, Tooltip } from "antd";
 const antIcon = (
   <LoadingOutlined type="loading" style={{ fontSize: 24 }} spin />
 );
@@ -13,9 +13,14 @@ class MiddleSection extends Component {
   componentDidMount() {
     this.mapData();
   }
+  componentDidUpdate(preProps, preState) {
+    if (this.props !== preProps) {
+      this.mapData();
+    }
+  }
   mapData = async () => {
-    const { id = "", question = "", options = "" } = this.props.question;
-    const tempData = { id: id, question: question, options: eval(options) };
+    const { id = "", question = "", options = "" ,status=0} = this.props.question;
+    const tempData = { id: id, question: question, options: eval(options) ,status:status};
     this.setState({
       data: tempData,
       index: this.props.questionIndex,
@@ -36,6 +41,31 @@ class MiddleSection extends Component {
                 }) ${data.question}`}</h5>
               </div>
               <div className="mSpace"></div>
+              <div className="row col-2 py-2 mt-1 ">
+                {data.status === 0 ? (
+                   <Tooltip title="Question Is Not Viewd">
+                  <EyeInvisibleFilled 
+                    style={{ fontSize: 48 }}
+                    className="text-warning"
+                  />
+                  </Tooltip>
+                ) : data.status === 1 ? (
+                  <Tooltip title="Question Is Already Viewd">
+                  <EyeFilled
+                    style={{ fontSize: 48 }}
+                    className="text-primary"
+                  />
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Answer Is Already Submitted">
+                  <LikeFilled 
+                    style={{ fontSize: 48 }}
+                    className="text-success"
+                  />
+                  </Tooltip>
+                )}
+              </div>
+              <div className="mSpace"></div>
               <div className="row col-12 py-2 mt-1 ">
                 <h5 className=" justify-content-start align-items-center fontSize">{`Choose correct answere from given options.`}</h5>
               </div>
@@ -50,9 +80,7 @@ class MiddleSection extends Component {
                         value={option}
                         name="option"
                       />
-                     {`${String.fromCharCode(
-                        index + 65
-                      )}. ${option}`}
+                      {`${String.fromCharCode(index + 65)}. ${option}`}
                     </label>
                   </div>
                 </div>

@@ -1,15 +1,49 @@
-import React ,{Component} from 'react';
-class LeftSection extends Component{
-    state={
-    }
-    render(){
-       return( 
-       <div className="container-fluid ">
-            Middle English, borrowed from Anglo-French, going back to Latin contentus "satisfied," from past participle of continēre "to hold together, restrain, have as contents" — more at CONTAIN
+import React, { Component } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+import questionData from '../data'
 
-NOTE: The sense "satisfied" of Latin contentus presumably developed from the more literal meaning "self-contained, restrained, held in." This is still somewhat apparent in early uses, as in this passage from Plautus's Poenulus: "ego faxo posthac di deaeque ceteri / contentiores mage erunt atque avidi minus, / quom scibunt, ut Veneri adierit leno manum." ("I will make the other gods and goddesses more restrained (contentiores) and less greedy when they know how the procurer played a trick on Venus.")
-        </div>
-        )
-    }
+const antIcon = (
+  <LoadingOutlined type="loading" style={{ fontSize: 24 }} spin />
+);
+class LeftSection extends Component {
+  state = {
+    data: [],
+    loading: true,
+  };
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData=async()=>{
+      await this.setState({data:questionData.getOnlyQuestionList(),loading:false})
+  }
+  render() {
+    const { data = [],loading=true } = this.state;
+    console.log(this.state)
+    return (
+      <div className="col-12 ">
+        {!loading ? (
+          <div className="scrollbar scrollbar-primary">
+         <div class="force-overflow">
+            {data.map((temp, index) => (
+                <>
+              <div className={this.props.questionIndex===index?"row border selQuesBack  py-2  mb-2 ml-2s mt-2 pointer":"row  py-2 quesBack mb-1 ml-1 mt-1 pointer"}
+              onClick={()=>this.props.handleNext(temp.id)}
+              >
+                  <div className="col-2 d-flex justify-content-center  fontSizeLeft">{`Q.${index+1}`}</div>
+                  <div className="col-10 d-flex justify-content-start align-items-center fontSize">{temp.question}</div>
+              </div>
+              
+              </>
+            ))}
+           </div>
+          </div>
+          
+        ) : (
+          <Spin indicator={antIcon} />
+        )}
+      </div>
+    );
+  }
 }
 export default LeftSection;
