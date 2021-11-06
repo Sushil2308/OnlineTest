@@ -56,10 +56,12 @@ class Display extends Component {
                   questionIndex={currentIndex - 1}
                 />
               </div>
-              <div className="col-xl-6 testMainBack">
+              <div className="col-xl-6 testMainBack bg-shadow">
                 <MiddleSection
                   question={this.fetchQuestionById(currentIndex - 1)}
                   questionIndex={currentIndex - 1}
+                  handleNext={this.handleNext}
+                  lastIndex={this.state.data.length}
                 />
               </div>
               <div className="col-xl-3 testBack">

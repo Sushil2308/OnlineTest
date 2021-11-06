@@ -81,3 +81,6 @@ body {
   border: 1px solid;
   box-shadow:  15px -2px 24px 3px #bdba
 }
+.bg-shadow{
+  box-shadow:  14px 12px 21px -1px #bdba
+}

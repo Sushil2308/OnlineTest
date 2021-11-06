@@ -8,6 +8,7 @@ class MiddleSection extends Component {
   state = {
     data: {},
     index: 0,
+    lastIndex:-1,
     loading: true,
   };
   componentDidMount() {
@@ -24,18 +25,19 @@ class MiddleSection extends Component {
     this.setState({
       data: tempData,
       index: this.props.questionIndex,
+      lastIndex:this.props.lastIndex,
       loading: false,
     });
   };
   render() {
-    const { data = {}, index = 0, loading = true } = this.state;
+    const { data = {}, index = 0, loading = true,lastIndex=0 } = this.state;
     console.log(this.state);
     return (
-      <div className="container-fluid ">
+      <div className="container-fluid  ">
         {!loading ? (
           <>
             <div className="row col-12 flex-column mb-2">
-              <div className="row col-12 py-2 mt-2 testBack ">
+              <div className="row col-12 py-2 mt-2 testBack bg-shadow">
                 <h5 className="row col-12 d-flex justify-content-start align-items-center fontQuesSize mt-1">{`Q.${
                   index + 1
                 }) ${data.question}`}</h5>
@@ -69,9 +71,9 @@ class MiddleSection extends Component {
               <div className="row col-12 py-2 mt-1 ">
                 <h5 className=" justify-content-start align-items-center fontSize">{`Choose correct answere from given options.`}</h5>
               </div>
-
+              
               {data.options.map((option, index) => (
-                <div className="row col-12 py-2 testBack mt-1">
+                <div className="row col-12 py-2 testBack mt-1 mb-1 bg-shadow">
                   <div className="form-check">
                     <label className="form-check-label fontSize">
                       <input
@@ -85,7 +87,18 @@ class MiddleSection extends Component {
                   </div>
                 </div>
               ))}
+             
             </div>
+            <div className="row col-12  d-flex justify-content-start align-items-center mt-1 mb-2">
+              
+              <button className={index>0?"btn col-3 btn-outline-primary":"btn col-3 btn-outline-primary disabled"}
+               onClick={()=>this.props.handleNext(data.id-1)}
+              >Prev</button>
+              <div className="col-6"></div>
+              <button className={index<lastIndex-1?"btn col-3 btn-outline-success":"btn col-3 btn-outline-success disabled"}
+               onClick={()=>this.props.handleNext(data.id+1)}
+              >Next</button>
+          </div>
           </>
         ) : (
           <Spin indicator={antIcon} />

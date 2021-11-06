@@ -30,7 +30,7 @@ class RightSection extends Component{
          <div class="force-overflow">
            <div className="row row-cols-3 m-auto row justify-content-center align-items-center">
             {data.map((temp, index) => (
-              <div className={temp.status===0?"col-2 bg-warning py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize":temp.status===1?"col-2 bg-primary py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize":"col-2 bg-success py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize"}>
+              <div className={temp.status===0?"col-2 rounded-circle bg-warning py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize":temp.status===1?"col-2 bg-primary py-2 rounded-circle quesBack m-3 row justify-content-center align-items-center text-white fontSize":"col-2 bg-success py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize"}>
                   {`Q.${index+1}`}
               </div>
             ))}
