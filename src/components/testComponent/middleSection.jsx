@@ -20,8 +20,8 @@ class MiddleSection extends Component {
     }
   }
   mapData = async () => {
-    const { id = "", question = "", options = "" ,status=0} = this.props.question;
-    const tempData = { id: id, question: question, options: eval(options) ,status:status};
+    const { id = "", question = "", options = "" ,status=0,answerd=-1} = this.props.question;
+    const tempData = { id: id, question: question, options: eval(options) ,status:status,answerd:answerd};
     this.setState({
       data: tempData,
       index: this.props.questionIndex,
@@ -43,25 +43,25 @@ class MiddleSection extends Component {
                 }) ${data.question}`}</h5>
               </div>
               <div className="mSpace"></div>
-              <div className="row col-2 py-2 mt-1 ">
+              <div className="row col-2 py-2 mt-1 bg-shadow rounded-circle py-4">
                 {data.status === 0 ? (
                    <Tooltip title="Question Is Not Viewd">
                   <EyeInvisibleFilled 
-                    style={{ fontSize: 48 }}
+                    style={{ fontSize: 40 }}
                     className="text-warning"
                   />
                   </Tooltip>
                 ) : data.status === 1 ? (
-                  <Tooltip title="Question Is Already Viewd">
+                  <Tooltip title="Question Is Already Viewd But Not Solved">
                   <EyeFilled
-                    style={{ fontSize: 48 }}
+                    style={{ fontSize: 40 }}
                     className="text-primary"
                   />
                   </Tooltip>
                 ) : (
                   <Tooltip title="Answer Is Already Submitted">
                   <LikeFilled 
-                    style={{ fontSize: 48 }}
+                    style={{ fontSize: 40 }}
                     className="text-success"
                   />
                   </Tooltip>
@@ -73,15 +73,28 @@ class MiddleSection extends Component {
               </div>
               
               {data.options.map((option, index) => (
-                <div className="row col-12 py-2 testBack mt-1 mb-1 bg-shadow">
+                <div className="row col-12 py-2 testBack mt-1 mb-1 bg-shadow" key={""+option+index}>
                   <div className="form-check">
                     <label className="form-check-label fontSize">
-                      <input
+                   {data.answerd===index?
+                    
+                    <input
                         type="radio"
-                        className="form-check-input"
+                        className="form-check-input pointer"
                         value={option}
                         name="option"
+                        checked
+                        onClick={()=>this.props.handleViewd(data.id,index)}
                       />
+                    :<input
+                    type="radio"
+                    className="form-check-input pointer"
+                    value={option}
+                    name="option"
+                    
+                    onClick={()=>this.props.handleViewd(data.id,index)}
+                  />}
+                      
                       {`${String.fromCharCode(index + 65)}. ${option}`}
                     </label>
                   </div>

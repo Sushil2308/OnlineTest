@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import { Spin } from "antd";
+import { Spin ,Tooltip} from "antd";
 import questionData from '../data'
 import { LoadingOutlined } from "@ant-design/icons";
 const antIcon = (
@@ -30,8 +30,8 @@ class RightSection extends Component{
          <div class="force-overflow">
            <div className="row row-cols-3 m-auto row justify-content-center align-items-center">
             {data.map((temp, index) => (
-              <div className={temp.status===0?"col-2 rounded-circle bg-warning py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize":temp.status===1?"col-2 bg-primary py-2 rounded-circle quesBack m-3 row justify-content-center align-items-center text-white fontSize":"col-2 bg-success py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize"}>
-                  {`Q.${index+1}`}
+              <div key={""+temp+index+1} className={temp.status===0?"bg-shadow col-2 rounded-circle bg-warning py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize":temp.status===1?"bg-shadow col-2 bg-primary py-2 rounded-circle quesBack m-3 row justify-content-center align-items-center text-white fontSize":"bg-shadow col-2 bg-success rounded-circle py-2 quesBack m-3 row justify-content-center align-items-center text-white fontSize"}>
+                  <Tooltip title={temp.status===0?"Question Is Not Viewd":temp.status===1?"Question Is Already Viewd But Not Solved":"Question Is Solved"}><h5 className="row  justify-content-center align-items-center">{`Q.${index+1}`}</h5></Tooltip>
               </div>
             ))}
             </div>

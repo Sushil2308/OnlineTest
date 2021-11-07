@@ -63,7 +63,7 @@ function getAnswereById(id){
 }
 function getQuestionList(){
     return questionList.map((question,index)=>{
-      return {"id":question.ques_id,"question":question.question,"options":question.options,status:0}
+      return {"id":question.ques_id,"question":question.question,"options":question.options,status:0,answerd:-1}
     })
 }
 function getOnlyQuestionList(){
